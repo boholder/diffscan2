@@ -1,0 +1,15 @@
+[project]
+name = "diffscan2"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "ameihm", email = "ameihm@mozilla.com"},
+]
+dependencies = []
+requires-python = ">=3.8"
+readme = "README.md"
+license = {text = "MPL-2.0"}
+
+
+[tool.pdm]
+distribution = false
