@@ -27,6 +27,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument('-e', action='store_true', help="execute command")
     parser.add_argument('-w', action='store_true', help="will execute on windows")
     parser.add_argument('nmap_cmd', nargs=argparse.REMAINDER, help='nmap command')
+    parser.add_argument("-q", action="store_true", help='add "> devnull 2>&1" at the end of command')
     return parser
 
 
@@ -35,12 +36,19 @@ def main() -> str:
     generated_opts = []
 
     if args.oX_in_tmp:
-        output_path_in_tmp = args.oX_in_tmp + random_string()
         if args.w:
             tmp_dir = "%localappdata%\\Temp"
         else:
             tmp_dir = "/tmp"
+        output_path_in_tmp = args.oX_in_tmp + random_string()
         generated_opts.append(f'-oX {tmp_dir}/{output_path_in_tmp}')
+
+    if args.q:
+        if args.w:
+            nul = "nul"
+        else:
+            nul = "/dev/null"
+        generated_opts.append(f"> {nul} 2>&1")
 
     if "nmap" in args.nmap_cmd:
         args.nmap_cmd.remove("nmap")
