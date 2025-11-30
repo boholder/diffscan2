@@ -26,7 +26,7 @@ def build_parser() -> argparse.ArgumentParser:
                         help='add "-oX /tmp/PREFIX<random-string>" option, for hiding output from working directory. Default PREFIX="tmp"')
     parser.add_argument('-e', action='store_true', help="execute command")
     parser.add_argument('-w', action='store_true', help="will execute on windows")
-    parser.add_argument('nmap_cmd', nargs='+', help='nmap command')
+    parser.add_argument('nmap_cmd', nargs=argparse.REMAINDER, help='nmap command')
     return parser
 
 
