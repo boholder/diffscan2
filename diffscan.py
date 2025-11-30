@@ -15,7 +15,7 @@ import re
 import time
 import subprocess
 import tempfile
-import cPickle
+import pickle
 import errno
 import tempfile
 import shutil
@@ -240,7 +240,7 @@ outdir = './diffscan_out'
 
 def outdir_setup():
     if not os.path.isdir(outdir):
-        os.mkdir(outdir, 0755)
+        os.mkdir(outdir, 755)
     if not os.access(outdir, os.W_OK):
         sys.stderr.write('%s not writable\n' % outdir)
         sys.exit(1)
@@ -259,13 +259,13 @@ def load_scanstate():
             return ScanState()
         else:
             raise
-    ret = cPickle.load(f)
+    ret = pickle.load(f)
     f.close()
     return ret
 
 def write_scanstate():
     f = open(statefile, 'w')
-    cPickle.dump(state, f)
+    pickle.dump(state, f)
     f.close()
 
 def parse_output(path):
